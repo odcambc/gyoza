@@ -1,7 +1,7 @@
 # Snakemake workflow: Analysis of DMS data
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥8.20.3-brightgreen.svg)](https://snakemake.github.io)
-[![GitHub actions status](https://github.com/durr1602/DMS_analysis_snakemake/workflows/Tests/badge.svg?branch=main)](https://github.com/<owner>/<repo>/actions?query=branch%3Amain+workflow%3ATests)
+[![GitHub actions status](https://github.com/durr1602/DMS_analysis_snakemake/workflows/Tests/badge.svg?branch=main)](https://github.com/durr1602/DMS_analysis_snakemake/actions?query=branch%3Amain+workflow%3ATests)
 
 
 A Snakemake workflow to analyze demultiplexed sequencing data of a DMS experiment, produce diagnostics plots and generate a dataframe of selection coefficients.
