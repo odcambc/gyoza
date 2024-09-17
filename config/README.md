@@ -1,9 +1,5 @@
 # Snakemake workflow: configuration
 
-## Technical configuration
-
-The file containing technical config parameters to run the snakemake pipeline on HPC is [here](config.v8+.yaml). Theoretically, this file does not need to be modified too much, and flags added to the snakemake command line will supersede the default values specified in the file.
-
 ## Project-specific files
 
 A few files should be provided to properly analyze your data.
@@ -48,3 +44,7 @@ The main config file is located [here](config_file.yaml). Please make sure to:
 * list your sample attributes
 * replace all parameter values with the ones adapted for your project
 * edit file paths if you've changed the file names listed in the previous section
+
+## Technical configuration
+
+The file containing technical config parameters to run the snakemake pipeline on HPC is [here](../profile/config.v8+.yaml). Theoretically, this file does not need to be modified too much, and flags added to the snakemake command line will supersede the default values specified in the file.

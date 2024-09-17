@@ -14,9 +14,10 @@ A Snakemake workflow to analyze demultiplexed sequencing data of a DMS experimen
 mamba create -c conda-forge -c bioconda -n DMS-snake snakemake
 mamba activate DMS-snake
 ```
-2. b) If you are on a machine without `conda` (e.g. DRAC servers), install snakemake from the provided Docker file, which will also install the plugin to run the workflow on HPC (you can then skip step 3):
+2. b) If you are on a machine without `conda` (e.g. DRAC servers), use venv instead:
+
+*work in progress*
 ```
-docker build . -t DMS-snake
 ```
 3. Intall plugin to run the workflow on HPC:
 ```
@@ -39,19 +40,19 @@ This step is strongly recommended. It will make sure the prepared workflow does 
 
     a) Locally (on the server): `snakemake --cores 4 --use-conda` (recommended only for small steps, with the --cores flag indicating the max number of CPUs to use in parallel).
     
-    b) **or** send to SLURM (1 job per rule per sample): `snakemake --profile config` (all parameters are specified in the [config file](config/config.v8+.yaml), jobs wait in the queue until the resources are allocated. For example, if you're allowed 40 CPUs, only 4 jobs at 10 CPUs each will be able to run at once. Once those jobs are completed, the next ones in the queue will automatically start.
+    b) **or** send to SLURM (1 job per rule per sample): `snakemake --profile profile` (all parameters are specified in the [config file](profile/config.v8+.yaml), jobs wait in the queue until the resources are allocated. For example, if you're allowed 40 CPUs, only 4 jobs at 10 CPUs each will be able to run at once. Once those jobs are completed, the next ones in the queue will automatically start.
 
 Fore more info on cluster execution: read the doc on [smk-cluster-generic plugin](https://github.com/jdblischak/smk-simple-slurm/tree/main)
 
-**Important** If snakemake is launched directly from the command line, the process will be output to the terminal. Exiting with `<Ctrl+C>` is currently interpreted (as specified in the [config file](config/config.v8+.yaml)) as cancelling all submitted jobs (`scancel`). To launch the pipeline and ensure that it continues to run in the background even when the terminal is closed, one should use [tmux](https://github.com/tmux/tmux/wiki/Getting-Started). This tool should be installed on servers. Follow the steps:
+**Important** If snakemake is launched directly from the command line, the process will be output to the terminal. Exiting with `<Ctrl+C>` is currently interpreted (as specified in the [config file](profile/config.v8+.yaml)) as cancelling all submitted jobs (`scancel`). To launch the pipeline and ensure that it continues to run in the background even when the terminal is closed, one should use [tmux](https://github.com/tmux/tmux/wiki/Getting-Started). This tool should be installed on servers. Follow the steps:
 1. Type `tmux new -s snakes` to launch a new tmux session
 2. Activate the conda env with `mamba activate DMS-snake` or `conda activate DMS-snake`
-3. Navigate to the Snakefile directory and launch the pipeline with `snakemake --profile config`
+3. Navigate to the Snakefile directory and launch the pipeline with `snakemake --profile profile`
 4. To close (detach) the session type `<Ctrl+b>`, then `<d>`. You should see the message: `[detached (from session snakes)]`
 5. To reconnect (attach) to the session, for example from a different machine: `tmux attach -t snakes`. You can also see existing sessions with `tmux ls`.
 
 ### Edit pipeline
-One can manually edit the [Snakefile](workflow/Snakefile) to edit the main steps of the pipeline. This should not be required to run the standard pipeline and should be done only when the workflow itself needs to be modified.
+One can manually edit the [Snakefile](workflow/Snakefile) and/or the rules (.smk files in rules folder) to edit the main steps of the pipeline. This should not be required to run the standard pipeline and should be done only when the workflow itself needs to be modified.
     
 **Editing template jupyter notebooks** is tricky to do manually because the paths and kernel are not shared between platforms. Thankfully, there is a snakemake command that allows interactive editing of any template notebook, using any output file (from the notebook) as argument. The following example will generate URLs to open `jupyter`, in which we can edit the process_read_counts notebook that outputs the upset_plot.svg file, as specified in the Snakefile.
 
@@ -71,4 +72,4 @@ You can then open the notebook, run it (kernel and paths taken care of) and save
 
 ## Issues / work in progress
 
-* Apptainer portability (step 2b does not work yet, the pipeline needs to be containerized and I don't know if notebooks will work)
+* Portability
