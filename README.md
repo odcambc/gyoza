@@ -26,20 +26,16 @@ pip install snakemake-executor-plugin-cluster-generic
 
 ## Usage
 
-### Prepare files
-1. **IMPORTANT**: see [config documentation](config/README.md) for more details.
-
-### Adapt workflow to project
-2. Once you've prepared all your files (see section above), please edit the [Snakefile](workflow/Snakefile) to make sure that the project-specific paths and parameters are specified. To simplify this profile, you can search for "Project-specific" in the file, which should show up in inline comments.
-3. (optional) Specify samples to process by uncommenting the corresponding line in the [Snakefile](workflow/Snakefile) and adapt it with the appropriate Sample_name values.
+### Prepare files and edit config
+1. **IMPORTANT**: Read the [config documentation](config/README.md) and **edit the main config**.
 
 ### Check pipeline
-4. (recommended) Perform a dry run using: `snakemake -n`
+2. (recommended) Perform a dry run using: `snakemake -n`
 
 This step is strongly recommended. It will make sure the prepared workflow does not contain any error and will display the rules (steps) that need to be run in order to reach the specified target(s) (default value for the target is the dataframe of selection coefficients, which is produced during the very last step of the workflow). For the dry run or the actual run, you can decide to run the workflow only until a certain file is generated or rule is completed, using the `--until` flag in the snakemake command line, for example: `snakemake -n --until stats`
 
 ### Run pipeline
-5. Running the workflow
+3. Running the workflow
 
     a) Locally (on the server): `snakemake --cores 4 --use-conda` (recommended only for small steps, with the --cores flag indicating the max number of CPUs to use in parallel).
     

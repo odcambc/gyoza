@@ -1,207 +1,26 @@
-# Import libraries
 
-import pandas as pd
+##### Import config #####
 
-# Specify paths
-layout_path = '../config/project_files/layout.csv' # Projet-specific file containing the main sample layout
+configfile: "config/config_file.yaml"
 
-# Import layout
-layout = pd.read_csv(layout_path)
+##### Set up Apptainer #####
 
-# Save layout as config file
-layout.set_index('Sample_name').to_json(f'{layout_path[:-3]}json')
+# this container defines the environment for each job when using the workflow
+# usage: snakemake --sdm conda apptainer
+container: "docker://continuumio/miniconda3"
 
-# Specify config file(s)
-configfile: f'{layout_path[:-3]}json'
+##### Load rules #####
 
-# To process all samples
-S = config['R1_file'] # field does not matter since all fields contain sample:field_value
+include: "rules/common.smk"
+include: "rules/cutadapt.smk"
+include: "rules/pandaseq.smk"
+include: "rules/vsearch.smk"
+include: "rules/stats.smk"
+include: "rules/generate_mutants.smk"
+include: "rules/parse_fasta.smk"
+include: "rules/process_read_counts.smk"
 
-# (optional) Restrict samples to handpicked ones
-#S = ['CN_a_r1_F1_T0']
-#S = ['CN_alp_r1_F1_T0','CN_alp_r2_F1_T0','SC_a_r1_F1_T0','SC_a_r2_F1_T0','SC_alp_r1_F1_T0','SC_alp_r2_F1_T0']
-
-# Pipeline code begins here
+##### Target(s) #####
 rule all:
     input:
-        # Target(s)
-        'results/df/selcoeffs.csv'
-
-# First step (rule) of pipeline
-rule cutadapt:
-    input:
-        read1 = lambda wildcards: f"../resources/reads/{config['R1_file'][wildcards.sample]}",
-        read2 = lambda wildcards: f"../resources/reads/{config['R2_file'][wildcards.sample]}"
-    params:
-        Nfwd = lambda wildcards: config['N_forward'][wildcards.sample],
-        Nrev = lambda wildcards: config['N_reverse'][wildcards.sample]
-    output:
-        read1 = '../results/1_trim/{sample}_trimmed.R1.fastq.gz',
-        read2 = '../results/1_trim/{sample}_trimmed.R2.fastq.gz'
-    resources:
-        threads = 10,
-        time = lambda _, attempt: f'00:{attempt*12}:00'
-    log:
-        'logs/1_trim/cutadapt-sample={sample}.stats'
-    conda:
-        'envs/cutadapt.yaml'
-    envmodules:
-        # Update the following, run module avail to see installed modules and versions
-        'cutadapt/4.9'
-    shell:
-        r"""
-        cutadapt -e 0.15 \
-        --no-indels \
-        --discard-untrimmed \
-        --cores={threads} \
-        -g {params.Nfwd} -G {params.Nrev} \
-        -o {output.read1} -p {output.read2} \
-        {input.read1} {input.read2} &> {log}
-        """
-
-rule pandaseq:
-    input:
-        read1 = rules.cutadapt.output.read1,
-        read2 = rules.cutadapt.output.read2
-    output:
-        '../results/2_merge/{sample}_merged.fasta'
-    resources:
-        threads = 4,
-        time = "00:05:00"
-    log:
-        'logs/2_merge/pandaseq-sample={sample}.stats'
-    conda:
-        'envs/pandaseq.yaml'
-    envmodules:
-        # Update the following, run module avail to see installed modules and versions
-        'pandaseq/2.11'
-    shell:
-        ## Flags for pandaseq
-        # -O max overlap, important,related to Aviti sequencing tech
-        # -k number of k-mers
-        # -B allow input sequences to lack a barcode/tag
-        # -t 0.5 minimum threshold for alignment score (0-1)
-        # -T 1 nb of threads, important, see doc
-        # -d flags to decide what to include in the output log, see doc
-        # -w output
-        r"""
-        pandaseq -f {input.read1} -r {input.read2} \
-        -O 625 \
-        -k 4 \
-        -B \
-        -t 0.6 \
-        -T {threads} \
-        -d bFSrk \
-        -w {output} &> {log}
-        """
-
-rule vsearch:
-    input:
-        rules.pandaseq.output
-    output:
-        '../results/3_aggregate/{sample}_aggregated.fasta'
-    resources:
-        threads = 1, # This command of vsearch is not multi-threaded
-        time = "00:01:00"
-    log:
-        'logs/3_aggregate/vsearch-sample={sample}.stats'
-    conda:
-        'envs/vsearch.yaml'
-    envmodules:
-        # Update the following, run module avail to see installed modules and versions
-        'vsearch/2.28.1'
-    shell:
-        ## Flags for vsearch
-        # --fastx_uniques aggregates identical sequences
-        # --minuniquesize discards sequences with abundance inferior to value
-        # --relabel new headers with specified string and ticker (1,2,3...)
-        # --sizeout conserve abundance annotations
-        r"""
-        vsearch --fastx_uniques {input} \
-        --minuniquesize 2 \
-        --relabel seq \
-        --sizeout \
-        --fastaout {output} &> {log}
-        """
-
-# The following rules can easily be run locally / using less resources
-rule stats:
-    input:
-        cutadapt_logs = expand(rules.cutadapt.log, sample=S),
-        pandaseq_logs = expand(rules.pandaseq.log, sample=S),
-        vsearch_logs = expand(rules.vsearch.log, sample=S)
-    output:
-        '../results/read_stats.csv'
-    resources:
-        threads = 1,
-        time = "00:01:00"
-    conda:
-        'envs/jupyter_basic.yaml'
-    script:
-        'scripts/get_read_stats.py'
-
-rule generate_mutants:
-    params:
-        layout = layout_path,
-        seqs = '../config/project_files/wt_seq.tsv', # Projet-specific file containing the wild-type sequences
-        codon_table = '../config/project_files/ScerevisiaeTAXID559292_Cocoputs_codon_table.csv' # Projet-specific file containing the genetic code
-    output:
-        '../results/df/master_layout.csv.gz'
-    resources:
-        threads = 1,
-        time = "00:01:00"
-    log:
-        notebook="logs/notebooks/generate_mutants.ipynb"
-    conda:
-        'envs/jupyter_basic.yaml'
-    notebook:
-        'notebooks/generate_mutants.py.ipynb'
-
-rule parse_fasta:
-    input:
-        fasta_files = expand(rules.vsearch.output, sample=S),
-        read_stats = rules.stats.output[0],
-        expected_mutants = rules.generate_mutants.output[0]
-    params:
-        exp_rc_per_sample = 2e6 # Projet-specific target for the read count per sample
-    output:
-        read_counts = '../results/df/readcounts.csv.gz',
-        unexp_rc_plot = '../results/graphs/unexp_rc_plot.svg',
-        rc_filter_plot = '../results/graphs/rc_filter_plot.svg'
-    resources:
-        mem_gb = 2, # > default to read csv.gz
-        threads = 1,
-        time = "00:01:00"
-    log:
-        notebook="logs/notebooks/parse_fasta.ipynb"
-    conda:
-        'envs/jupyter_plotting.yaml'
-    notebook:
-        'notebooks/parse_fasta.py.ipynb'
-
-rule process_read_counts:
-    input:
-        rules.parse_fasta.output.read_counts
-    params:
-        sample_attributes = ['Species', 'Mating_type', 'Fragment'], # Project-specific columns in the sample layout, each sample should correspond to a unique combination of the specified sample attributes + 'Timepoint' + 'Replicate'
-        exp_rc_per_var = 300, # Project-specific target for the read count per variant
-        rc_threshold = 10, # Project-specific threshold to label variants with a confidence score
-        nb_gen = '../config/project_files/nbgen.xlsx' # Projet-specific file containing the number of mitotic generations for each condition
-    output:
-        selcoeffs = '../results/df/selcoeffs.csv',
-        hist_plot = '../results/graphs/hist_plot.svg',
-        upset_plot = '../results/graphs/upset_plot.svg',
-        rc_var_plot = '../results/graphs/rc_var_plot.svg',
-        timepoints_plot = '../results/graphs/timepoints_plot.svg',
-        replicates_plot = '../results/graphs/replicates_plot.svg',
-        scoeff_violin_plot = '../results/graphs/scoeff_violin_plot.svg'
-    resources:
-        mem_gb = 2, # > default to read csv.gz
-        threads = 1,
-        time = "00:02:00"
-    log:
-        notebook="logs/notebooks/process_read_counts.ipynb"
-    conda:
-        'envs/jupyter_plotting.yaml'
-    notebook:
-        'notebooks/process_read_counts.py.ipynb'
+        get_target()
