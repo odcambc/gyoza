@@ -6,7 +6,7 @@ A few files should be provided to properly analyze your data.
 
 ### Sequencing data
 
-Please provide the raw reads (forward and reverse) of your DMS sequencing data in the `resources/reads` folder. The file names should be featured in the layout (see section below).
+Please provide the raw reads (forward and reverse) of your DMS sequencing data in the `config/reads` folder. The file names should be featured in the layout (see section below).
 
 ### Layout
 
