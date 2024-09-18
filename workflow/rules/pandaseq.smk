@@ -10,7 +10,7 @@ rule pandaseq:
     log:
         'logs/2_merge/pandaseq-sample={sample}.stats'
     conda:
-        'envs/pandaseq.yaml'
+        '../envs/pandaseq.yaml'
     envmodules:
         # Update the following, run module avail to see installed modules and versions
         'pandaseq/2.11'

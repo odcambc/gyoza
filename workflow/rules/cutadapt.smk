@@ -14,7 +14,7 @@ rule cutadapt:
     log:
         'logs/1_trim/cutadapt-sample={sample}.stats'
     conda:
-        'envs/cutadapt.yaml'
+        '../envs/cutadapt.yaml'
     envmodules:
         # Update the following, run module avail to see installed modules and versions
         'cutadapt/4.9'

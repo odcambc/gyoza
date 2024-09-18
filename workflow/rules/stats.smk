@@ -9,6 +9,6 @@ rule stats:
         threads = 1,
         time = "00:01:00"
     conda:
-        'envs/jupyter_basic.yaml'
+        '../envs/jupyter_basic.yaml'
     script:
         'scripts/get_read_stats.py'

@@ -9,7 +9,7 @@ rule vsearch:
     log:
         'logs/3_aggregate/vsearch-sample={sample}.stats'
     conda:
-        'envs/vsearch.yaml'
+        '../envs/vsearch.yaml'
     envmodules:
         # Update the following, run module avail to see installed modules and versions
         'vsearch/2.28.1'
