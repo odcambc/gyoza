@@ -1,7 +1,7 @@
 rule cutadapt:
     input:
-        read1 = lambda wildcards: f"resources/reads/{sample_layout.loc[wildcards.sample, "R1_file"]}",
-        read2 = lambda wildcards: f"resources/reads/{sample_layout.loc[wildcards.sample, "R2_file"]}"
+        read1 = lambda wildcards: f"config/reads/{sample_layout.loc[wildcards.sample, "R1_file"]}",
+        read2 = lambda wildcards: f"config/reads/{sample_layout.loc[wildcards.sample, "R2_file"]}"
     params:
         Nfwd = lambda wildcards: sample_layout.loc[wildcards.sample, "N_forward"],
         Nrev = lambda wildcards: sample_layout.loc[wildcards.sample, "N_reverse"]
@@ -14,7 +14,7 @@ rule cutadapt:
     log:
         'logs/1_trim/cutadapt-sample={sample}.stats'
     conda:
-        'envs/cutadapt.yaml'
+        '../envs/cutadapt.yaml'
     envmodules:
         # Update the following, run module avail to see installed modules and versions
         'cutadapt/4.9'

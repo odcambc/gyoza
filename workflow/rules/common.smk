@@ -5,7 +5,7 @@ import warnings
 
 ##### Import sample layout #####
 
-sample_layout = pd.read_csv(config["samples"], sep="\t", dtype={"Sample_name": str}).set_index("Sample_name")
+sample_layout = pd.read_csv(config["samples"]["path"], dtype={"Sample_name": str}).set_index("Sample_name")
 
 ##### Select samples to process #####
 

@@ -1,13 +1,10 @@
+##### Ad-hoc conda apptainer #####
+
+container: "docker://mambaorg/micromamba"
 
 ##### Import config #####
 
 configfile: "config/config_file.yaml"
-
-##### Set up Apptainer #####
-
-# this container defines the environment for each job when using the workflow
-# usage: snakemake --sdm conda apptainer
-container: "docker://continuumio/miniconda3"
 
 ##### Load rules #####
 

@@ -48,8 +48,9 @@ Fore more info on cluster execution: read the doc on [smk-cluster-generic plugin
 1. Type `tmux new -s snakes` to launch a new tmux session
 2. Activate the conda env with `mamba activate DMS-snake` or `conda activate DMS-snake`
 3. Navigate to the Snakefile directory and launch the pipeline with `snakemake --profile profile`
-4. To close (detach) the session type `<Ctrl+b>`, then `<d>`. You should see the message: `[detached (from session snakes)]`
+4. To close (detach) the session, type `<Ctrl+b>`, then `<d>`. You should see the message: `[detached (from session snakes)]`
 5. To reconnect (attach) to the session, for example from a different machine: `tmux attach -t snakes`. You can also see existing sessions with `tmux ls`.
+6. To close the session when everything is finished, type `<Ctrl+b>`, then `<:>`, then `kill-session` and finally `<Enter>`.
 
 ### Edit pipeline
 One can manually edit the [Snakefile](workflow/Snakefile) and/or the rules (.smk files in rules folder) to edit the main steps of the pipeline. This should not be required to run the standard pipeline and should be done only when the workflow itself needs to be modified.

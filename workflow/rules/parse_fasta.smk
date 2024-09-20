@@ -16,6 +16,6 @@ rule parse_fasta:
     log:
         notebook="logs/notebooks/parse_fasta.ipynb"
     conda:
-        'envs/jupyter_plotting.yaml'
+        '../envs/jupyter_plotting.yaml'
     notebook:
         'notebooks/parse_fasta.py.ipynb'
