@@ -1,6 +1,6 @@
 ##### Ad-hoc conda apptainer #####
 
-container: "docker://mambaorg/micromamba"
+containerized: "docker://durr1602/dms_analysis_snakemake:latest"
 
 ##### Import config #####
 
