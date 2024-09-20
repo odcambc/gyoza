@@ -1,6 +1,6 @@
 ##### Ad-hoc conda apptainer #####
 
-container: "docker://continuumio/miniconda3"
+container: "docker://mambaorg/micromamba"
 
 ##### Import config #####
 
