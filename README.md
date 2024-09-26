@@ -14,17 +14,25 @@ A Snakemake workflow to analyze demultiplexed sequencing data of a DMS experimen
 mamba create -c conda-forge -c bioconda -n DMS-snake snakemake
 mamba activate DMS-snake
 ```
-2. b) If you are on a machine without `conda` (e.g. DRAC servers), use venv instead:
+2. b) If you are on a machine without `conda` (e.g. DRAC servers), create a virtual environment with `snakemake`, `pandas` and the plugin mentioned in step 3:
 
 *work in progress*
 ```
+module load python/3.12
+module load scipy-stack
 ```
+Once we make sure it works, we'll pip freeze the requirements and push it on this repo.
+
 3. Intall plugin to run the workflow on HPC:
 ```
 pip install snakemake-executor-plugin-cluster-generic
 ```
 [Plugin documentation](https://github.com/jdblischak/smk-simple-slurm/tree/main)
 
+4. Change file permissions to be able to run the plugin
+```
+chmod +x profile/status-sacct.sh
+```
 ## Usage
 
 ### Prepare files and edit config
@@ -36,11 +44,17 @@ pip install snakemake-executor-plugin-cluster-generic
 This step is strongly recommended. It will make sure the prepared workflow does not contain any error and will display the rules (steps) that need to be run in order to reach the specified target(s) (default value for the target is the dataframe of selection coefficients, which is produced during the very last step of the workflow). For the dry run or the actual run, you can decide to run the workflow only until a certain file is generated or rule is completed, using the `--until` flag in the snakemake command line, for example: `snakemake -n --until stats`
 
 ### Run pipeline
-3. Running the workflow
+3. Running the workflow with `conda`
 
     a) Locally (on the server): `snakemake --cores 4 --use-conda` (recommended only for small steps, with the --cores flag indicating the max number of CPUs to use in parallel).
     
-    b) **or** send to SLURM (1 job per rule per sample): `snakemake --profile profile` (all parameters are specified in the [config file](profile/config.v8+.yaml), jobs wait in the queue until the resources are allocated. For example, if you're allowed 40 CPUs, only 4 jobs at 10 CPUs each will be able to run at once. Once those jobs are completed, the next ones in the queue will automatically start.
+    b) **or** send to SLURM (1 job per rule per sample): `snakemake --profile profile --sdm conda` (all parameters are specified in the [config file](profile/config.v8+.yaml), jobs wait in the queue until the resources are allocated. For example, if you're allowed 40 CPUs, only 4 jobs at 10 CPUs each will be able to run at once. Once those jobs are completed, the next ones in the queue will automatically start.
+
+4. Running the workflow inside a container (needs singularity/apptainer). In this case, the container will first be created, then conda envs will be created for each rule inside the container.
+
+    a) Locally: does not work for now
+    
+    b) Send to SLURM (1 job per rule per sample): `snakemake --profile profile --sdm conda apptainer` (see comment about resource allocation above).
 
 Fore more info on cluster execution: read the doc on [smk-cluster-generic plugin](https://github.com/jdblischak/smk-simple-slurm/tree/main)
 
@@ -73,4 +87,5 @@ You can then open the notebook, run it (kernel and paths taken care of) and save
 
 ## Issues / work in progress
 
-* Portability
+* Portability / installation on DRAC servers
+* Local execution with apptainer integration does not currently work, potentially because of filesystem usage ("Assuming unrestricted shared filesystem usage", but it also states that when running it successfully with --use-conda...)
