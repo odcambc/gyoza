@@ -18,4 +18,4 @@ rule parse_fasta:
     conda:
         '../envs/jupyter_plotting.yaml'
     notebook:
-        'notebooks/parse_fasta.py.ipynb'
+        '../notebooks/parse_fasta.py.ipynb'

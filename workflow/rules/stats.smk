@@ -8,7 +8,9 @@ rule stats:
     resources:
         threads = 1,
         time = "00:01:00"
+    log:
+        'logs/4_stats/stats.log'
     conda:
         '../envs/jupyter_basic.yaml'
     script:
-        'scripts/get_read_stats.py'
+        '../scripts/get_read_stats.py'

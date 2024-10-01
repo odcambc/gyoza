@@ -24,4 +24,4 @@ rule process_read_counts:
     conda:
         '../envs/jupyter_plotting.yaml'
     notebook:
-        'notebooks/process_read_counts.py.ipynb'
+        '../notebooks/process_read_counts.py.ipynb'

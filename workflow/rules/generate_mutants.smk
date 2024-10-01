@@ -13,4 +13,4 @@ rule generate_mutants:
     conda:
         '../envs/jupyter_basic.yaml'
     notebook:
-        'notebooks/generate_mutants.py.ipynb'
+        '../notebooks/generate_mutants.py.ipynb'
