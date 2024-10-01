@@ -1,6 +1,6 @@
 rule generate_mutants:
     params:
-        layout = config["samples"],
+        layout = config["samples"]["path"],
         seqs = 'config/project_files/wt_seq.tsv', # Projet-specific file containing the wild-type sequences
         codon_table = f'config/project_files/{config["codon_table"]}' # Projet-specific file containing the genetic code
     output:
