@@ -12,8 +12,9 @@ rule process_read_counts:
         upset_plot = 'results/graphs/upset_plot.svg',
         rc_var_plot = 'results/graphs/rc_var_plot.svg',
         timepoints_plot = 'results/graphs/timepoints_plot.svg',
-        replicates_plot = 'results/graphs/replicates_plot.svg',
-        scoeff_violin_plot = 'results/graphs/scoeff_violin_plot.svg'
+        scoeff_violin_plot = 'results/graphs/scoeff_violin_plot.svg',
+        s_through_time_plot = 'results/graphs/s_through_time_plot.svg',
+        replicates_plot = 'results/graphs/replicates_plot.svg'
     resources:
         mem_gb = 2, # > default to read csv.gz
         threads = 1,
