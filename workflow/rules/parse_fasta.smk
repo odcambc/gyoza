@@ -4,7 +4,7 @@ rule parse_fasta:
         read_stats = rules.stats.output[0],
         expected_mutants = rules.generate_mutants.output[0]
     params:
-        exp_rc_per_sample = config['rc_aims']['exp_rc_per_sample']
+        exp_rc_per_sample = float(config['rc_aims']['exp_rc_per_sample'])
     output:
         read_counts = 'results/df/readcounts.csv.gz',
         unexp_rc_plot = 'results/graphs/unexp_rc_plot.svg',

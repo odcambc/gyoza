@@ -85,11 +85,11 @@ def generate_read_stats(cutadapt_logfiles, pandaseq_logfiles, vsearch_logfiles, 
     fullstats['Aggregated_%'] = fullstats['Nb_non-singletons'] / fullstats['Total_merged_reads']
     
     # Output to csv file
-    fullstats.to_csv('read_stats.csv')
+    fullstats.to_csv(outpath)
     
     return
 
 generate_read_stats(snakemake.input.cutadapt_logs,
                     snakemake.input.pandaseq_logs,
                     snakemake.input.vsearch_logs,
-                    snakemake.output)
+                    snakemake.output[0])
