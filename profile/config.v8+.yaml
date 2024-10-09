@@ -1,18 +1,17 @@
 executor: cluster-generic
 cluster-generic-submit-cmd:
-  mkdir -p logs/{rule} &&
   sbatch
     --partition={resources.partition}
     --mem={resources.mem_gb}G
     --cpus-per-task={resources.threads}
     --time={resources.time}
     --job-name=smk-{rule}-{wildcards}
-    --output=logs/{rule}/{rule}-{wildcards}-%j.out
+    --output=logs/SLURM_out/{rule}/{rule}-%j-{wildcards}.out
     --mail-type=END,FAIL
     --mail-user={resources.mail}
     --parsable
 default-resources:
-  - mail="romain.durand.1@ulaval.ca"
+  - mail="<YOUR-EMAIL-ADRESS>"
   - partition="small"
   - mem_gb=1
   - threads=10

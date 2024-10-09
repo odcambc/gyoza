@@ -1,6 +1,6 @@
 # Snakemake workflow: Analysis of DMS data
 
-[![Snakemake](https://img.shields.io/badge/snakemake-≥8.20.3-brightgreen.svg)](https://snakemake.github.io)
+[![Snakemake](https://img.shields.io/badge/snakemake-≥8.20.6-brightgreen.svg)](https://snakemake.github.io)
 [![GitHub actions status](https://github.com/durr1602/DMS_analysis_snakemake/workflows/Tests/badge.svg?branch=main)](https://github.com/durr1602/DMS_analysis_snakemake/actions?query=branch%3Amain+workflow%3ATests)
 
 
@@ -11,10 +11,10 @@ A Snakemake workflow to analyze demultiplexed sequencing data of a DMS experimen
 1. Use `git clone` to clone this repository
 2. a) If you are on a machine with `conda`, install snakemake in a virtual environment with the following lines (or equivalent):
 ```
-mamba create -c conda-forge -c bioconda -n DMS-snake snakemake
-mamba activate DMS-snake
+conda create env --file=env.yml
+conda activate DMS-snake
 ```
-2. b) If you are on a machine without `conda` (e.g. DRAC servers), create a virtual environment with `snakemake`, `pandas` and the plugin mentioned in step 3:
+2. b) If you are on a machine without `conda` (e.g. DRAC servers), create a virtual environment with `snakemake`, `pandas` and the plugin to send to SLURM
 
 *work in progress*
 ```
@@ -23,20 +23,10 @@ module load scipy-stack
 ```
 Once we make sure it works, we'll pip freeze the requirements and push it on this repo.
 
-3. Intall plugin to run the workflow on HPC:
-```
-pip install snakemake-executor-plugin-cluster-generic
-```
-[Plugin documentation](https://github.com/jdblischak/smk-simple-slurm/tree/main)
-
-4. Change file permissions to be able to run the plugin
-```
-chmod +x profile/status-sacct.sh
-```
 ## Usage
 
 ### Prepare files and edit config
-1. **IMPORTANT**: Read the [config documentation](config/README.md) and **edit the main config**.
+1. **IMPORTANT**: Read the [config documentation](config/README.md) and **edit the main config**. If you plan on sending the pipeline to SLURM, make sure you also **edit the technical config file**.
 
 ### Check pipeline
 2. (recommended) Perform a dry run using: `snakemake -n`

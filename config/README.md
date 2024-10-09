@@ -47,4 +47,4 @@ The main config file is located [here](config_file.yaml). Please make sure to:
 
 ## Technical configuration
 
-The file containing technical config parameters to run the snakemake pipeline on HPC is [here](../profile/config.v8+.yaml). Theoretically, this file does not need to be modified too much, and flags added to the snakemake command line will supersede the default values specified in the file.
+The file containing technical config parameters to run the snakemake pipeline on HPC is [here](../profile/config.v8+.yaml). Apart from your email adress (please replace `<...>`), this file does not need to be modified too much, and flags added to the snakemake command line will supersede the default values specified in the file.

@@ -4,4 +4,3 @@ channels:
   - defaults
 dependencies:
 - pandaseq=2.11
-- libtool=2.4.6
