@@ -2,7 +2,7 @@
 
 ## Project-specific files
 
-A few files should be provided to properly analyze your data.
+A few files should be provided to properly analyze your data. What follows is the general procedure, however an example dataset is provided in order to test the workflow. If you want simply want to run the workflow with the example dataset, please go to step 3a in the [main README](../README.md).
 
 ### Sequencing data
 
