@@ -9,13 +9,26 @@ A Snakemake workflow to analyze demultiplexed sequencing data of a DMS experimen
 
 ## Installation
 
-1. Use `git clone` to clone this repository
-2. a) If you are on a machine with `conda` (>=24.9.1), install snakemake in a virtual environment with the following lines:
+1. Clone this repository:
 ```
-conda create env --file=env.yml
+git clone https://github.com/durr1602/DMS_analysis_snakemake.git
+```
+2. Move to the corresponding directory:
+```
+cd DMS_analysis_snakemake
+```
+3. a) If you are on a machine with `conda`, first update to a recent version (>=24.7.1, ideally even more recent such as >=24.9.1). You might run into some issues, so one workaround is to update using `mamba`:
+```
+mamba update conda
+```
+
+...then install snakemake in a virtual environment (the "solving environment" step can take some time, normally not longer than a few minutes):
+
+```
+conda env create --name=DMS-snake --file=env.yml
 conda activate DMS-snake
 ```
-2. b) Installation and usage on a machine without `conda` such as DRAC servers is currently unavailable.
+3. b) Installation and usage on a machine without `conda` such as DRAC servers is currently unavailable.
 
 ## Usage
 
