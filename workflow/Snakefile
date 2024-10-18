@@ -6,6 +6,10 @@ containerized: "docker://durr1602/dms_analysis_snakemake:latest"
 
 configfile: "config/config_file.yaml"
 
+##### Set up report #####
+
+report: "report/workflow.rst"
+
 ##### Load rules #####
 
 include: "rules/common.smk"

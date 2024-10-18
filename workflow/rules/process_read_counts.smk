@@ -8,13 +8,41 @@ rule process_read_counts:
         nb_gen = config['samples']['generations']
     output:
         selcoeffs = 'results/df/selcoeffs.csv',
-        hist_plot = 'results/graphs/hist_plot.svg',
-        upset_plot = 'results/graphs/upset_plot.svg',
-        rc_var_plot = 'results/graphs/rc_var_plot.svg',
-        timepoints_plot = 'results/graphs/timepoints_plot.svg',
-        scoeff_violin_plot = 'results/graphs/scoeff_violin_plot.svg',
-        s_through_time_plot = 'results/graphs/s_through_time_plot.svg',
-        replicates_plot = 'results/graphs/replicates_plot.svg'
+        hist_plot = report('results/graphs/hist_plot.svg',
+            '../report/hist_plot.rst',
+            category='2. Read processing',
+            labels={"figure": "2.1. Raw read count per variant"}
+        ),
+        upset_plot = report('results/graphs/upset_plot.svg',
+            '../report/upset_plot.rst',
+            category='2. Read processing',
+            labels={"figure": "2.2. Overlap across time points and replicates"}
+        ),
+        rc_var_plot = report('results/graphs/rc_var_plot.svg',
+            '../report/rc_var_plot.rst',
+            category="2. Read processing",
+            labels={"figure": "2.3. Distribution of allele frequencies"}
+        ),
+        timepoints_plot = report('results/graphs/timepoints_plot.svg',
+            '../report/timepoints_plot.rst',
+            category="3. Selection coefficients",
+            labels={"figure": "3.3. Correlation between time points"}
+        ),
+        scoeff_violin_plot = report('results/graphs/scoeff_violin_plot.svg',
+            '../report/scoeff_violin_plot.rst',
+            category="3. Selection coefficients",
+            labels={"figure": "3.1. Distribution of selection coefficients"}
+        ),
+        s_through_time_plot = report('results/graphs/s_through_time_plot.svg',
+            '../report/s_through_time_plot.rst',
+            category="3. Selection coefficients",
+            labels={"figure": "3.4. Selection through time"}
+        ),
+        replicates_plot = report('results/graphs/replicates_plot.svg',
+            '../report/replicates_plot.rst',
+            category="3. Selection coefficients",
+            labels={"figure": "3.2. Correlation between replicates"}
+        )
     resources:
         mem_gb = 2, # > default to read csv.gz
         threads = 1,

@@ -7,8 +7,16 @@ rule parse_fasta:
         exp_rc_per_sample = float(config['rc_aims']['exp_rc_per_sample'])
     output:
         read_counts = 'results/df/readcounts.csv.gz',
-        unexp_rc_plot = 'results/graphs/unexp_rc_plot.svg',
-        rc_filter_plot = 'results/graphs/rc_filter_plot.svg'
+        rc_filter_plot = report('results/graphs/rc_filter_plot.svg',
+            '../report/rc_filter_plot.rst',
+            category='1. Read filtering',
+            labels={"figure": "1.1. Summary of filtered reads"}
+        ),
+        unexp_rc_plot = report('results/graphs/unexp_rc_plot.svg',
+            '../report/unexp_rc_plot.rst',
+            category='1. Read filtering',
+            labels={"figure": "1.2. Read counts of unexpected variants"}
+        )
     resources:
         mem_gb = 2, # > default to read csv.gz
         threads = 1,

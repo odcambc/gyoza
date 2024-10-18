@@ -61,6 +61,13 @@ To launch the pipeline and ensure that it continues to run in the background eve
 5. To reconnect (attach) to the session, for example from a different machine: `tmux attach -t snakes`. You can also see existing sessions with `tmux ls`.
 6. To close the session when everything is finished, type `<Ctrl+b>`, then `<:>`, then `kill-session` and finally `<Enter>`.
 
+### Generate HTML report
+
+Once the workflow has run, you can generate a comprehensive HTML report, complete with underlying code and embedded plots:
+```
+snakemake --report report.html
+```
+
 ### Edit pipeline
 One can manually edit the [Snakefile](workflow/Snakefile) and/or the rules (.smk files in rules folder) to edit the main steps of the pipeline. This should not be required to run the standard pipeline and should be done only when the workflow itself needs to be modified.
     
