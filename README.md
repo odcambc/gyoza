@@ -1,7 +1,7 @@
 # Snakemake workflow: Analysis of DMS data
 
 [![Conda](https://img.shields.io/badge/conda-≥24.9.1-brightgreen.svg)](https://github.com/conda/conda)
-[![Snakemake](https://img.shields.io/badge/snakemake-≥8.20.6-brightgreen.svg)](https://snakemake.github.io)
+[![Snakemake](https://img.shields.io/badge/snakemake-≥8.23.2-brightgreen.svg)](https://snakemake.github.io)
 [![GitHub actions status](https://github.com/durr1602/DMS_analysis_snakemake/workflows/Tests/badge.svg?branch=main)](https://github.com/durr1602/DMS_analysis_snakemake/actions?query=branch%3Amain+workflow%3ATests)
 
 
@@ -91,8 +91,6 @@ You can then open the notebook, run it (kernel and paths taken care of) and save
 
 Known (potential) issues:
 * Tests performed by github actions are currently not working with the latest `snakemake` version (no `conda`) but should be soon
-* It is possible (but unlikely) that a dependency (`libtool`) is missing to run `pandaseq`. Please contact me if you encounter this issue.
 
 Work in progress:
 * Portability / installation on DRAC servers
-* Generating a report
