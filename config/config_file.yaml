@@ -9,7 +9,11 @@ samples:
     # Specify path to file containing the number of mitotic generations for each condition
     generations: 'config/project_files/nbgen.xlsx'
     
-codon_table: 'ScerevisiaeTAXID559292_Cocoputs_codon_table.csv'
+codon:
+    # Codon table
+    table: 'ScerevisiaeTAXID559292_Cocoputs_codon_table.csv'
+    # Codon mode, currently supports "NNN" or "NNK"
+    mode: 'NNN'
 
 rc_aims:
     # Specify targeted read count per sample
