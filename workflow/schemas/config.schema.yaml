@@ -1,0 +1,79 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+
+description: main configuration file
+
+type: object
+
+properties:
+  samples:
+    type: object
+    properties:
+      path:
+        type: string
+        description: Path to sample layout
+      selection:
+        description: Selected samples (either 'all' or list of samples)
+        oneOf:
+          - type: string
+          - type: array
+            uniqueItems: true
+            items:
+              type: string
+      attributes:
+        description: List of sample attributes = columns in the sample layout other than Timepoint and Replicate
+        type: array
+        uniqueItems: true
+        default: []
+        items:
+          type: string
+      generations:
+        description: Path to file containing the number of mitotic generations
+        type: string
+    required:
+      - path
+      - selection
+      - attributes
+      - generations
+
+  codon:
+    type: object
+    properties:
+      table:
+        description: Path to codon table
+        type: string
+      mode:
+        description: Codon mode - 'NNN' or 'NNK'
+        type: string
+        enum: ['NNN','NNK']
+    required:
+      - table
+      - mode
+
+  rc_aims:
+    type: object
+    properties:
+      exp_rc_per_sample:
+        description: Expected read count per sample in scientific notation without quotes, e.g. 3e2
+        type: string
+        pattern: -?\d\.?\d*[Ee][+\-]?\d+
+      exp_rc_per_var:
+        description: Expected read count per variant (integer)
+        type: integer
+    required:
+      - exp_rc_per_sample
+      - exp_rc_per_var
+
+  filter:
+    type: object
+    properties:
+      rc_threshold:
+        description: Read count threshold (integer). Used to label variants based on the read count at T0
+        type: integer
+    required:
+      - rc_threshold
+
+required:
+  - samples
+  - codon
+  - rc_aims
+  - filter

@@ -2,10 +2,6 @@
 
 containerized: "docker://durr1602/dms_analysis_snakemake:latest"
 
-##### Import config #####
-
-configfile: "config/config_file.yaml"
-
 ##### Set up report #####
 
 report: "report/workflow.rst"

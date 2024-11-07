@@ -1,7 +1,15 @@
 ##### Import libraries #####
 
 import pandas as pd
+from snakemake.utils import validate
 import warnings
+
+##### Import main config ####
+
+configfile: "config/config_file.yaml"
+
+## Validate config
+validate(config, schema="../schemas/config.schema.yaml")
 
 ##### Import sample layout #####
 
