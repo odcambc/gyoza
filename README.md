@@ -9,6 +9,8 @@ A Snakemake workflow to analyze demultiplexed sequencing data of a DMS experimen
 
 ## Installation
 
+0. If you use Windows, the following steps need to be run in WSL2 ([WSL installation instructions](https://learn.microsoft.com/en-us/windows/wsl/install)). If you already have WSL2 or if you use Linux or MacOS X, the following steps need `conda`. If you don't already have it, we recommend installing Miniforge by following the instructions listed in the "Step 1" section of [this tutorial](https://snakemake.readthedocs.io/en/stable/tutorial/setup.html#step-1-installing-miniforge). Continue by running the command lines listed here (clone repo, ...) in the same terminal.
+
 1. Clone this repository:
 ```
 git clone https://github.com/durr1602/DMS_analysis_snakemake.git
@@ -17,18 +19,16 @@ git clone https://github.com/durr1602/DMS_analysis_snakemake.git
 ```
 cd DMS_analysis_snakemake
 ```
-3. a) If you are on a machine with `conda`, first update to a recent version (>=24.7.1, ideally even more recent such as >=24.9.1). You might run into some issues, so one workaround is to update using `mamba`:
+3. If you correctly followed instructions at step 0, you should be able to use `conda`, first update to a recent version (>=24.7.1, ideally even more recent such as >=24.9.1). You might run into some issues, so one workaround is to update using `mamba`:
 ```
 mamba update conda
 ```
 
-...then install snakemake in a virtual environment (the "solving environment" step can take some time, normally not longer than a few minutes):
-
+4. Install snakemake in a virtual environment (the "solving environment" step can take some time, normally not longer than a few minutes). Again, you could run into some issues if you have multiple instances of `conda` on your system (e.g. anaconda and miniforge), in which case you can uninstall (for example) anaconda by running `rm -rf anaconda3`.
 ```
 conda env create --name=DMS-snake --file=env.yml
 conda activate DMS-snake
 ```
-3. b) Installation and usage on a machine without `conda` such as DRAC servers is currently unavailable.
 
 ## Usage
 
