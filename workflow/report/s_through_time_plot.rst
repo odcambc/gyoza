@@ -1,4 +1,4 @@
-**Important note:** make sure you click on the eye icon in the Path section above to refresh the view and load the correct image.
+**Important note:** make sure you click on the eye icon above to refresh the view and load the correct image.
 
 Here, we show the evolution of selection coefficients through time depending on the type of mutation.
 This is relevant mostly if your dataset contains more than 1 output time point, but even with only one you could potentially discern patterns related to the mutation type.

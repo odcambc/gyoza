@@ -1,4 +1,4 @@
-**Important note:** make sure you click on the eye icon in the Path section above to refresh the view and load the correct image.
+**Important note:** make sure you click on the eye icon above to refresh the view and load the correct image.
 
 Here, we show an example (with a single combination of "Sample attributes" as specified in the config file) of overlap of unique variants across time points and replicates.
 In a "standard" DMS experiment, we typically observe a strong overlap between input (T0) replicates.
