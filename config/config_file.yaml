@@ -11,16 +11,16 @@ samples:
     
 codon:
     # Codon table
-    table: 'ScerevisiaeTAXID559292_Cocoputs_codon_table.csv'
+    table: 'config/project_files/ScerevisiaeTAXID559292_Cocoputs_codon_table.csv'
     # Codon mode, currently supports "NNN" or "NNK"
-    mode: 'NNN'
+    mode: 'NNK'
 
 rc_aims:
-    # Specify targeted read count per sample
+    # Specify targeted read count per sample in scientific notation
     exp_rc_per_sample: 3e4
-    # Specify target read count per variant
+    # Specify target read count per variant (integer)
     exp_rc_per_var: 5
 
 filter:
-    # Specify read count threshold to label variants with a confidence score
+    # Specify read count threshold (integer) to label variants with a confidence score
     rc_threshold: 10
