@@ -12,8 +12,8 @@ Please provide the raw reads (forward and reverse) of your DMS sequencing data i
 
 Please provide a csv-formatted layout of your samples. The file should be named `layout.csv` and be located in the `config/project_files` folder. Here is [an example](project_files/layout.csv). The file should contain the following columns:
 - Sample_name: the unique identifier for each of your samples. The sample name does not need to contain information about the timepoint or replicate, since these correspond to other columns
-- R1_file: base name of the fastq file for forward (R1) reads (can be gzipped), including extension
-- R2_file: base name of the fastq file for reverse (R2) reads (can be gzipped), including extension
+- R1: base name of the fastq file for forward (R1) reads (can be gzipped), including extension
+- R2: base name of the fastq file for reverse (R2) reads (can be gzipped), including extension
 - N_forward: the 5'-3' DNA sequence corresponding to the fixed region upstream of the mutated sequence
 - N_reverse: the 5'-3' DNA sequence corresponding to the fixed region 5' of the mutated sequence on the reverse strand
 - Pos_start: starting position in the protein sequence. If you've mutated several regions/fragments in a coding gene, this position should refer to the full-length protein sequence

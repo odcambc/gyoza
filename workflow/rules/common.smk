@@ -33,4 +33,4 @@ if config["samples"]["selection"] != "all":
 ##### Specify final target #####
 
 def get_target():
-    return 'results/df/selcoeffs.csv'
+    return ['results/df/selcoeffs.csv', 'results/0_qc/multiqc.html']

@@ -1,0 +1,45 @@
+#### Adapted from https://github.com/akcorut/kGWASflow/
+
+# =================================================================================================
+#     Generate QC Stats Using FastQC on Raw Reads
+# =================================================================================================
+
+rule fastqc:
+    input:
+        lambda wildcards: f"config/reads/{sample_layout.loc[wildcards.sample, wildcards.RF]}"
+    output:
+        html="results/0_qc/{sample}_{RF}_fastqc.html",
+        zip="results/0_qc/{sample}_{RF}_fastqc.zip",
+    log:
+        "logs/0_qc/{sample}_{RF}_fastqc.log",
+    resources:
+        threads = 10
+    message: 
+        "Performing quality control analysis using FastQC on the following files: {input}"
+    wrapper:
+        "v5.0.2/bio/fastqc"
+
+# =================================================================================================
+#     MultiQC
+# =================================================================================================
+
+rule multiqc:
+    input:
+        expand("results/0_qc/{sample}_{RF}_fastqc.zip", sample=samples, RF=["R1", "R2"])
+    output:
+        report(
+            "results/0_qc/multiqc.html",
+            "../report/qc.rst",
+            category="0. Quality control",
+            labels={"report": "Interactive QC report"}
+        )
+    log:
+        "logs/0_qc/multiqc.log",
+    params:
+        extra = "-v -d --interactive"
+    message: 
+        "Performing MultiQC on the FastQC results..."
+    wrapper:
+        "v5.0.2/bio/multiqc"
+
+# =================================================================================================

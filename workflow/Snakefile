@@ -9,6 +9,7 @@ report: "report/workflow.rst"
 ##### Load rules #####
 
 include: "rules/common.smk"
+include: "rules/qc.smk"
 include: "rules/cutadapt.smk"
 include: "rules/pandaseq.smk"
 include: "rules/vsearch.smk"
