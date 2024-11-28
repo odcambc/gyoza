@@ -9,6 +9,8 @@ rule generate_mutants:
     resources:
         threads = 1,
         time = "00:01:00"
+    message:
+        "Generating expected mutants based on the experimental design (codon mode = {params.codon_mode})"
     log:
         notebook="logs/notebooks/generate_mutants.ipynb"
     conda:

@@ -7,6 +7,8 @@ rule pandaseq:
     resources:
         threads = 4,
         time = "00:05:00"
+    message:
+        "Merging reads for {input.read1} and {input.read2}"
     log:
         'logs/2_merge/pandaseq-sample={sample}.stats'
     conda:

@@ -15,7 +15,7 @@ rule fastqc:
     resources:
         threads = 10
     message: 
-        "Performing quality control analysis using FastQC on the following files: {input}"
+        "Performing quality control analysis using FastQC on the following file: {input}"
     wrapper:
         "v5.0.2/bio/fastqc"
 
@@ -38,7 +38,7 @@ rule multiqc:
     params:
         extra = "-v -d --interactive"
     message: 
-        "Performing MultiQC on the FastQC results..."
+        "Aggregating FastQC results with MultiQC..."
     wrapper:
         "v5.0.2/bio/multiqc"
 

@@ -11,6 +11,8 @@ rule cutadapt:
     resources:
         threads = 10,
         time = lambda _, attempt: f'00:{attempt*12}:00'
+    message:
+        "Trimming constant sequences forward={params.Nfwd} and reverse={params.Nrev} from input files {input.read1} and {input.read2}, respectively"
     log:
         'logs/1_trim/cutadapt-sample={sample}.stats'
     conda:

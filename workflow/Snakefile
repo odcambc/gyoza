@@ -22,3 +22,7 @@ include: "rules/process_read_counts.smk"
 rule all:
     input:
         get_target()
+
+##### Generate report if workflow runs succesfully #####
+onsuccess:
+    shell("snakemake --report results/report.html")
