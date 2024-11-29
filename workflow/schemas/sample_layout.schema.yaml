@@ -1,0 +1,41 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+
+description: sample layout
+
+type: object
+
+properties:
+  Sample_name:
+    type: string
+    description: Unique identifier for the sample
+  R1:
+    type: string
+    pattern: '[-_.A-Za-z0-9]+(\.fastq){1}(.gz)?'
+    description: Name of the FASTQ file (no path, can be compressed or not) for forward reads, e.g. 'xxx_R1.fastq.gz'
+  R2:
+    type: string
+    pattern: '[-_.A-Za-z0-9]+(\.fastq){1}(.gz)?'
+    description: Name of the FASTQ file (no path, can be compressed or not) for reverse reads, e.g. 'xxx_R2.fastq.gz'
+  N_forward:
+    type: string
+    pattern: (?i)^[ATGC]+$
+    description: 5''-3'' constant sequence immediately upstream the mutated locus
+  N_reverse:
+    type: string
+    pattern: (?i)^[ATGC]+$
+    description: 5''-3'' constant sequence immediately downstream the mutated locus
+  Replicate:
+    type: string
+    description: Replicate (e.g. cultured in two separate tubes with the same set of conditions)
+  Timepoint:
+    type: string
+    description: Time point (mandatory are T0 and at least one other time point, e.g. T1)
+
+required:
+  - Sample_name
+  - R1
+  - R2
+  - N_forward
+  - N_reverse
+  - Replicate
+  - Timepoint

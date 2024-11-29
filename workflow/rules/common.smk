@@ -11,9 +11,11 @@ configfile: "config/config_file.yaml"
 ## Validate config
 validate(config, schema="../schemas/config.schema.yaml")
 
-##### Import sample layout #####
+##### Import and validate sample layout #####
 
-sample_layout = pd.read_csv(config["samples"]["path"], dtype={"Sample_name": str}).set_index("Sample_name")
+layout_csv = pd.read_csv(config["samples"]["path"])
+validate(layout_csv, schema="../schemas/sample_layout.schema.yaml")
+sample_layout = layout_csv.set_index("Sample_name")
 
 ##### Select samples to process #####
 
