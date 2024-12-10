@@ -21,8 +21,8 @@ rule pandaseq:
         # -O max overlap, important,related to Aviti sequencing tech
         # -k number of k-mers
         # -B allow input sequences to lack a barcode/tag
-        # -t 0.5 minimum threshold for alignment score (0-1)
-        # -T 1 nb of threads, important, see doc
+        # -t minimum threshold for alignment score (0-1)
+        # -T number of threads, important, see doc
         # -d flags to decide what to include in the output log, see doc
         # -w output
         r"""
