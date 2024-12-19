@@ -30,13 +30,12 @@ validate(codon_table, schema="../schemas/codon_table.schema.yaml")
 samples = sample_layout.sort_index().index
 
 if config["samples"]["selection"] != "all":
-    selection = [x for x in config["samples"]["selection"]]
+    selection = [x for x in config["samples"]["selection"] if x in samples]
     if len(selection) == 0:
-        raise Exception("Error with the selection of samples to process in the config file")
+        raise Exception("Error.. None of the samples you specified for processing feature in the sample layout.")
     elif len(selection) != len(config["samples"]["selection"]):
-        warnings.warn("Warning... at least one sample was misspelled when selecting samples to process in the config file"+
-        "\n...Will continue with only the correctly spelled samples"
-        )
+        statement = "Warning... at least one sample was misspelled when selecting samples to process in the config file\nWill continue with only the correctly spelled samples."
+        warnings.warn(statement)
     else:
         samples = selection
 

@@ -15,7 +15,7 @@ codon:
     # Codon table
     table: 'config/project_files/ScerevisiaeTAXID559292_Cocoputs_codon_table.csv'
     # Codon mode, currently supports "NNN" or "NNK"
-    mode: 'NNK'
+    mode: 'NNN'
 
 rc_aims:
     # Specify targeted read count per sample in scientific notation

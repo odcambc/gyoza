@@ -15,7 +15,9 @@ properties:
         description: Selected samples (either 'all' or list of samples)
         oneOf:
           - type: string
+            enum: ['all']
           - type: array
+            minItems: 1
             uniqueItems: true
             items:
               type: string
