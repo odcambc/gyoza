@@ -24,6 +24,12 @@ properties:
     type: string
     pattern: (?i)^[ATGC]+$
     description: 5''-3'' constant sequence immediately downstream the mutated locus
+  Mutateq_seq:
+    type: string
+    description: Unique identifier for the mutated locus
+  Pos_start:
+    type: integer
+    description: Starting position in the protein sequence for the mutated locus
   Replicate:
     type: string
     description: Replicate (e.g. cultured in two separate tubes with the same set of conditions)
@@ -37,5 +43,7 @@ required:
   - R2
   - N_forward
   - N_reverse
+  - Mutated_seq
+  - Pos_start
   - Replicate
   - Timepoint

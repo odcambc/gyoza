@@ -29,11 +29,15 @@ properties:
       generations:
         description: Path to file containing the number of mitotic generations
         type: string
+      wt:
+        description: Path to file listing the WT DNA sequences
+        type: string
     required:
       - path
       - selection
       - attributes
       - generations
+      - wt
 
   codon:
     type: object

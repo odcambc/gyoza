@@ -1,0 +1,18 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+
+description: list of WT DNA sequences
+
+type: object
+
+properties:
+  Mutated_seq:
+    type: string
+    description: Unique identifier for the mutated locus
+  WT_seq:
+    type: string
+    pattern: (?i)^[ATGC]+$
+    description: Wild-type DNA sequence for the mutated locus (length should be a multiple of 3, the first 3 bases constitute the first mutated codon)
+
+required:
+  - Mutated_seq
+  - WT_seq
