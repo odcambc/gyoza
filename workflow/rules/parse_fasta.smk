@@ -21,6 +21,8 @@ rule parse_fasta:
         mem_gb = 2, # > default to read csv.gz
         threads = 1,
         time = "00:01:00"
+    message:
+        "Parsing fasta files and comparing sequenced mutants with expectations..."
     log:
         notebook="logs/notebooks/parse_fasta.ipynb"
     conda:

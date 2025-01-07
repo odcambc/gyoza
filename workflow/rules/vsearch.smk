@@ -6,6 +6,8 @@ rule vsearch:
     resources:
         threads = 1, # This command of vsearch is not multi-threaded
         time = "00:01:00"
+    message:
+        "Counting reads for every unique sequence..."
     log:
         'logs/3_aggregate/vsearch-sample={sample}.stats'
     conda:

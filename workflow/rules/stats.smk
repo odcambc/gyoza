@@ -8,6 +8,8 @@ rule stats:
     resources:
         threads = 1,
         time = "00:01:00"
+    message:
+        "Parsing log files to aggregate read statistics..."
     log:
         'logs/4_stats/stats.log'
     conda:

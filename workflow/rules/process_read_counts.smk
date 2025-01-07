@@ -47,6 +47,8 @@ rule process_read_counts:
         mem_gb = 2, # > default to read csv.gz
         threads = 1,
         time = "00:02:00"
+    message:
+        "Processing read counts... converting to selection coefficients"
     log:
         notebook="logs/notebooks/process_read_counts.ipynb"
     conda:

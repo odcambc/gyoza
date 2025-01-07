@@ -1,7 +1,7 @@
 rule cutadapt:
     input:
-        read1 = lambda wildcards: f"config/reads/{sample_layout.loc[wildcards.sample, "R1_file"]}",
-        read2 = lambda wildcards: f"config/reads/{sample_layout.loc[wildcards.sample, "R2_file"]}"
+        read1 = lambda wildcards: f"config/reads/{sample_layout.loc[wildcards.sample, "R1"]}",
+        read2 = lambda wildcards: f"config/reads/{sample_layout.loc[wildcards.sample, "R2"]}"
     params:
         Nfwd = lambda wildcards: sample_layout.loc[wildcards.sample, "N_forward"],
         Nrev = lambda wildcards: sample_layout.loc[wildcards.sample, "N_reverse"]
@@ -11,6 +11,8 @@ rule cutadapt:
     resources:
         threads = 10,
         time = lambda _, attempt: f'00:{attempt*12}:00'
+    message:
+        "Trimming constant sequences forward={params.Nfwd} and reverse={params.Nrev} from input files {input.read1} and {input.read2}, respectively"
     log:
         'logs/1_trim/cutadapt-sample={sample}.stats'
     conda:

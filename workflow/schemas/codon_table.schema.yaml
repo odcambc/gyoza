@@ -1,0 +1,19 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+
+description: Codon table (genetic code)
+
+type: object
+
+properties:
+  codon:
+    type: string
+    pattern: (?i)^[ATGC]{3}$
+    description: Codons (upper or lower case)
+  aminoacid:
+    type: string
+    pattern: ^[*A-Z]{1}$
+    description: Corresponding amino acid (upper case)
+
+required:
+  - codon
+  - aminoacid

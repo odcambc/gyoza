@@ -15,7 +15,9 @@ properties:
         description: Selected samples (either 'all' or list of samples)
         oneOf:
           - type: string
+            enum: ['all']
           - type: array
+            minItems: 1
             uniqueItems: true
             items:
               type: string
@@ -29,11 +31,15 @@ properties:
       generations:
         description: Path to file containing the number of mitotic generations
         type: string
+      wt:
+        description: Path to file listing the WT DNA sequences
+        type: string
     required:
       - path
       - selection
       - attributes
       - generations
+      - wt
 
   codon:
     type: object

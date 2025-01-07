@@ -9,6 +9,7 @@ report: "report/workflow.rst"
 ##### Load rules #####
 
 include: "rules/common.smk"
+include: "rules/qc.smk"
 include: "rules/cutadapt.smk"
 include: "rules/pandaseq.smk"
 include: "rules/vsearch.smk"
@@ -21,3 +22,7 @@ include: "rules/process_read_counts.smk"
 rule all:
     input:
         get_target()
+
+##### Generate report if workflow runs succesfully #####
+onsuccess:
+    shell("snakemake --report results/report.html")
