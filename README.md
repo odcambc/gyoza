@@ -43,7 +43,7 @@ This step is strongly recommended. It will make sure the prepared workflow does 
 ### Run pipeline
 3. Running the workflow with `conda`
 
-    a) Locally: `snakemake --cores 4 --use-conda` (recommended only for small steps or to run the workflow on the provided example dataset, with the `--cores` flag indicating the max number of CPUs to use in parallel - can be adapted depending on the resources available on your machine).
+    a) Locally: `snakemake --cores 4 --sdm conda` (recommended only for small steps or to run the workflow on the provided example dataset, with the `--cores` flag indicating the max number of CPUs to use in parallel - can be adapted depending on the resources available on your machine).
     
     b) **or** send to SLURM (1 job per rule per sample): `snakemake --profile profile --sdm conda` (all parameters are specified in the [tech config file](profile/config.v8+.yaml), jobs wait in the queue until the resources are allocated. For example, if you're allowed 40 CPUs, only 4 jobs at 10 CPUs each will be able to run at once. Once those jobs are completed, the next ones in the queue will automatically start.
 
@@ -74,7 +74,7 @@ One can manually edit the [Snakefile](workflow/Snakefile) and/or the rules (.smk
 **Editing template jupyter notebooks** is tricky to do manually because the paths and kernel are not shared between platforms. Thankfully, there is a snakemake command that allows interactive editing of any template notebook, using any output file (from the notebook) as argument. The following example will generate URLs to open `jupyter`, in which we can edit the process_read_counts notebook that outputs the upset_plot.svg file, as specified in the corresponding .smk file.
 
 ```
-snakemake --use-conda --cores 1 --edit-notebook ../results/graphs/upset_plot.svg
+snakemake --sdm conda --cores 1 --edit-notebook ../results/graphs/upset_plot.svg
 ```
 
 **Careful**, if you are running `snakemake` on a server, you might need to open a SSH tunnel between your local machine and the server by running the following command from a local terminal (should not be necessary when running locally on your machine):
